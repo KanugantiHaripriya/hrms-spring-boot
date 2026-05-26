@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background: #e2e8f0;
+}
+
+/* Center page */
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.login-card {
+    width: 380px;
+    background: #ffffff;
+    padding: 32px;
+
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 22px;
+    color: #0f172a;
+}
+
+/* Inputs */
+.input {
+    width: 100%;
+    padding: 12px;
+
+    margin-bottom: 14px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+
+    font-size: 14px;
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+
+    background: #0f172a;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #1e293b;
+}
+
+
+a{
+    font-size: 13px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

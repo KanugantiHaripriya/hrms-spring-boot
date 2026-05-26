@@ -1,0 +1,127 @@
+
+body {
+    margin: 0;
+    font-family: system-ui, Arial;
+    background: #f3f4f6;
+}
+
+/* center page */
+.auth-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* card */
+.auth-card {
+    width: 360px;
+    background: white;
+    padding: 28px;
+
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+/* title */
+.title {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+    color: #111827;
+}
+
+/* input */
+.auth-card input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    outline: none;
+}
+
+/* focus */
+.auth-card input:focus {
+    border-color: #2563eb;
+}
+
+/* button */
+.auth-card button {
+    width: 100%;
+    padding: 11px;
+
+    background: #0f172a;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.auth-card button:hover {
+    background: #1e293b;
+}
+
+/* Danger button (HR login) */
+.danger-btn {
+    width: 100%;
+    padding: 11px;
+
+    background: #ef4444;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.danger-btn:hover {
+    background: #dc2626;
+}
+
+/*----------------------------------------------
+-------------------------------------
+----------------------*/
+/* ========================= */
+/* TOP NAVBAR */
+/* ========================= */
+
+.top-navbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+/* NAV BUTTON */
+
+.nav-btn {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: #e2e8f0;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* ACTIVE NAV BUTTON */
+
+.active-nav {
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    color: white;
+}
+
+/* HOVER EFFECT */
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+}

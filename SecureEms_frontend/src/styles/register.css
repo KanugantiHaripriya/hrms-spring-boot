@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    font-family: system-ui, Arial;
+    background: #f3f4f6;
+}
+
+/* Page center */
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.register-card {
+    width: 600px;
+    background: white;
+    padding: 30px;
+
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Title */
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #111827;
+}
+
+/* Grid layout */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Inputs */
+.grid input {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* focus */
+.grid input:focus {
+    border-color: #2563eb;
+}
+
+/* Button */
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #111827;
+    color: white;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #1f2937;
+}
+
+.links {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.links a {
+    font-size: 13px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,61 @@
+/* Page */
+.verify-otp-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3f4f6;
+}
+
+/* Card */
+.verify-otp-card {
+    width: 360px;
+    background: white;
+    padding: 28px;
+
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Title */
+.verify-otp-title {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+    color: #111827;
+}
+
+/* Input */
+.verify-otp-card input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    outline: none;
+}
+
+.verify-otp-card input:focus {
+    border-color: #2563eb;
+}
+
+/* Button */
+.verify-otp-btn {
+    width: 100%;
+    padding: 11px;
+
+    background: #111827;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.verify-otp-btn:hover {
+    background: #1f2937;
+}

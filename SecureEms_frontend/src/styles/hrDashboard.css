@@ -1,0 +1,392 @@
+
+/* GLOBAL BACKGROUND */
+body {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* PAGE TITLE */
+h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+    padding-left: 5%;
+}
+
+/* SUB HEADINGS */
+h4 {
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 12px;
+}
+
+/* ========================= */
+/* EMPLOYEE FORM */
+/* ========================= */
+
+.employee-form-wrapper {
+    background: rgba(255,255,255,0.92);
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+/* TITLE */
+
+.employee-form-wrapper h4 {
+    grid-column: 1 / -1;
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+/* INPUTS */
+
+.employee-form-wrapper input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #dbeafe;
+    background: #f8fafc;
+
+    font-size: 14px;
+    outline: none;
+
+    transition: 0.2s ease;
+    box-sizing: border-box;
+}
+
+.employee-form-wrapper input:focus {
+    border-color: #6366f1;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+}
+
+/* BUTTON */
+
+.employee-submit-btn {
+    grid-column: 3;
+
+    justify-self: end;
+
+    border: none;
+    border-radius: 12px;
+
+    height: 46px;
+    min-width: 180px;
+
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.employee-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(99,102,241,0.3);
+}
+
+/* TABLET */
+
+@media (max-width: 992px) {
+
+    .employee-form-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .employee-submit-btn {
+        grid-column: 2;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 576px) {
+
+    .employee-form-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-submit-btn {
+        grid-column: 1;
+        width: 100%;
+    }
+}
+
+/* ========================= */
+/* TABLE DESIGN (NEW MODERN LOOK) */
+/* ========================= */
+.table {
+    background: white !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+}
+
+/* HEADER */
+.table thead {
+    background: #111827 !important;
+    color: white !important;
+}
+
+.table thead th {
+    border: none !important;
+    padding: 14px !important;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* ROWS */
+.table tbody tr {
+    transition: 0.2s;
+}
+
+.table tbody tr:hover {
+    background: #f1f5f9 !important;
+}
+
+.table td {
+    padding: 12px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    font-size: 14px;
+    color: #334155;
+}
+
+/* ========================= */
+/* ACTION BUTTONS */
+/* ========================= */
+.btn-danger {
+    background: #ef4444 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+    font-weight: 600;
+}
+
+.btn-danger:hover {
+    background: #dc2626 !important;
+}
+
+.btn-warning {
+    background: #fbbf24 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+    font-weight: 600;
+    color: #111 !important;
+}
+
+.btn-warning:hover {
+    background: #f59e0b !important;
+}
+
+/* BUTTON SPACING */
+.me-2 {
+    margin-right: 8px !important;
+}
+
+/* ========================= */
+/* SMALL UX IMPROVEMENTS */
+/* ========================= */
+.container {
+    max-width: 1150px;
+}
+
+/* TABLE RESPONSIVE (NO JSX CHANGE) */
+@media (max-width: 768px) {
+
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+}
+
+/* MOBILE SMALL */
+@media (max-width: 480px) {
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .table td,
+    .table th {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+/* ========================= */
+/* TOP HEADER */
+/* ========================= */
+
+/* ========================= */
+/* DASHBOARD HEADER */
+/* ========================= */
+
+.dashboard-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    padding: 18px 24px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* RIGHT SIDE BUTTONS */
+
+.topbar-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* COMMON BUTTON STYLE */
+
+.small-btn,
+.logout-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    width: 170px;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: white;
+
+    /* FIX TEXT BREAK */
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LEAVE REQUEST BUTTON */
+
+.small-btn {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+}
+
+/* LOGOUT BUTTON */
+
+.logout-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239,68,68,0.25);
+}
+
+/* HOVER EFFECT */
+
+.small-btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(99,102,241,0.35);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(239,68,68,0.35);
+}
+
+/* ACTIVE CLICK */
+
+.small-btn:active,
+.logout-btn:active {
+    transform: scale(0.97);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .dashboard-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .topbar-buttons {
+        width: 100%;
+    }
+
+    .small-btn,
+    .logout-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* ========================= */
+/* PAGINATION */
+/* ========================= */
+
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.pagination-icon-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-icon-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(99,102,241,0.3);
+}
+
+.pagination-icon-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.pagination-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}

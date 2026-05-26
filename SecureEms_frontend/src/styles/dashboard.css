@@ -1,0 +1,177 @@
+/* DASHBOARD MAIN */
+.dashboard-container {
+    min-height: 100vh;
+    padding: 30px;
+    background: linear-gradient(135deg, #eef2ff, #dbeafe);
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    padding: 18px 25px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.dashboard-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* NAVBAR BUTTONS */
+.mt-3 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 0 !important;
+}
+
+/* COMMON BUTTON STYLE */
+.mt-3 button,
+.dashboard-btn {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+/* LEAVE BUTTON */
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+}
+
+/* STATUS BUTTON */
+.btn-success {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.btn-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(22, 163, 74, 0.4);
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.logout-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* CARD STYLE */
+.card,
+.profile-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+/* FORM INPUTS */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+/* PROFILE CARD */
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-card {
+    width: 100%;
+    max-width: 850px;
+}
+
+.welcome-text {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1e293b;
+    font-size: 26px;
+}
+
+/* GRID */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.info-row {
+    background: #f8fafc;
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid #2563eb;
+}
+
+.info-row span {
+    font-weight: 600;
+    color: #475569;
+}
+
+.info-row b {
+    color: #0f172a;
+}
+
+/* ROLE SPECIAL */
+.role {
+    border-left: 5px solid #16a34a;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .mt-3 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .mt-3 button,
+    .dashboard-btn {
+        width: 100%;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
