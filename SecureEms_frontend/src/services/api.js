@@ -11,13 +11,34 @@ const api = axios.create({
 });
 
 // ================================
-// AUTH APIs (if needed later)
+// ADD JWT TOKEN TO EVERY REQUEST
+// ================================
+api.interceptors.request.use(
+    (config) => {
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// ================================
+// AUTH APIs
 // ================================
 
+// Login User
 export const loginUser = (data) => {
     return api.post("/auth/login", data);
 };
 
+// Register Employee
 export const registerEmployee = (data) => {
     return api.post("/auth/register", data);
 };
@@ -66,4 +87,3 @@ export const rejectLeave = (leaveId, reason) => {
 // EXPORT DEFAULT API
 // ================================
 export default api;
-

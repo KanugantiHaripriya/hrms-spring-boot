@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import api, {
-    submitLeave,
-    getLeaveStats
-} from "../services/api";
+import api, { submitLeave, getLeaveStats } from "../services/api";
 import { jsPDF } from "jspdf";
-
 import "../styles/dashboard.css";
 
 function Dashboard() {
-
     const [employee, setEmployee] = useState(null);
     const [showLeaveForm, setShowLeaveForm] = useState(false);
     const [showStats, setShowStats] = useState(false);
@@ -24,22 +19,30 @@ function Dashboard() {
         startDate: "", endDate: "", leaveType: "", reason: ""
     });  
 
+    // Re-enabled the token retrieval for real API calls
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
 
     useEffect(() => {
-        fetchProfile();
-    }, []);
+        // Only attempt to fetch if we have an email
+        if (email) {
+            fetchProfile();
+        }
+    }, [email]);
 
     const fetchProfile = async () => {
         try {
+            // Real API Call restored
             const response = await api.get(`/employee/profile/${email}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            
+            // This sets your real database data!
             setEmployee(response.data);
+            
         } catch (error) {
-            console.log(error);
-            alert("Failed To Fetch Profile");
+            console.log("Error fetching profile:", error);
+            // alert("Failed To Fetch Profile");
         }
     };
 
@@ -52,12 +55,12 @@ function Dashboard() {
 
     const submitLeaveRequest = async () => {
         try {
-            await submitLeave({
-                employeeId: employee.id,
-                ...leaveData
-            });
+            // Real API Call restored
+            await submitLeave({ employeeId: employee.id, ...leaveData });
+            
             alert("Leave Request Submitted Successfully");
             setLeaveData({ startDate: "", endDate: "", leaveType: "", reason: "" });
+            setShowLeaveForm(false);
         } catch (error) {
             console.log(error);
             alert("Failed To Submit Leave");
@@ -66,17 +69,16 @@ function Dashboard() {
 
     const fetchStats = async () => {
         try {
+            // Real API Call restored
             const response = await getLeaveStats(employee.id);
             setStats(response.data);
+            
         } catch (error) {
             console.log(error);
             alert("Failed To Fetch Leave Stats");
         }
     };
 
-    // ==========================================
-    // PDF GENERATION ENGINE
-    // ==========================================
     const generatePayslipPDF = () => {
         const payroll = employee?.payroll;
         if (!payroll) {
@@ -150,19 +152,31 @@ function Dashboard() {
         setShowPreview(true);
     };
 
-    return (
-        <div className="dashboard-container">
+    // Prevent rendering the dashboard until the real data arrives
+    if (!employee && email) {
+        return <div style={{ padding: '40px', textAlign: 'center', fontFamily: 'Inter' }}>Loading your dashboard...</div>;
+    }
 
-            <div className="dashboard-header">
-                <h2>Employee Dashboard</h2>
-                <div className="mt-3">
-                    <button className="btn btn-primary me-2" onClick={() => setShowLeaveForm(!showLeaveForm)}>
+    return (
+        <div className="dashboard-layout">
+            {/* SIDEBAR */}
+            <aside className="sidebar">
+                <div className="sidebar-brand">
+                    <h2>EMS<span>.</span></h2>
+                </div>
+                <nav className="sidebar-nav">
+                    <button className={`nav-item ${!showLeaveForm && !showStats ? 'active' : ''}`} onClick={() => { setShowLeaveForm(false); setShowStats(false); }}>
+                        Dashboard
+                    </button>
+                    <button className={`nav-item ${showLeaveForm ? 'active' : ''}`} onClick={() => { setShowLeaveForm(!showLeaveForm); setShowStats(false); }}>
                         Leave Request
                     </button>
-                    <button className="btn btn-success me-2" onClick={() => { setShowStats(!showStats); fetchStats(); }}>
+                    <button className={`nav-item ${showStats ? 'active' : ''}`} onClick={() => { setShowStats(!showStats); setShowLeaveForm(false); fetchStats(); }}>
                         Leave Status
                     </button>
-                    <button className="dashboard-btn logout-btn" onClick={() => {
+                </nav>
+                <div className="sidebar-footer">
+                    <button className="logout-btn" onClick={() => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("email");
                         window.location.href = "/";
@@ -170,134 +184,146 @@ function Dashboard() {
                         Logout
                     </button>
                 </div>
-            </div>
+            </aside>
 
-            {/* LEAVE FORM */}
-            {showLeaveForm && (
-                <div className="card p-4 mb-4">
-                    <h4>Apply Leave</h4>
-                    <input type="date" name="startDate" className="form-control mb-2" value={leaveData.startDate} onChange={handleLeaveChange} />
-                    <input type="date" name="endDate" className="form-control mb-2" value={leaveData.endDate} onChange={handleLeaveChange} />
-                    <input type="text" name="leaveType" placeholder="Leave Type" className="form-control mb-2" value={leaveData.leaveType} onChange={handleLeaveChange} />
-                    <textarea name="reason" placeholder="Reason" className="form-control mb-2" value={leaveData.reason} onChange={handleLeaveChange} />
-                    <button className="btn btn-primary" onClick={submitLeaveRequest}>Submit Leave</button>
-                </div>
-            )}
-
-            {/* LEAVE STATS */}
-            {showStats && stats && (
-                <div className="card p-4 mb-4">
-                    <h4>Leave Statistics</h4>
-                    <p><strong>Total Requests:</strong> {stats.totalRequests}</p>
-                    <p><strong>Approved Leaves:</strong> {stats.approvedLeaves}</p>
-                    <p><strong>Rejected Leaves:</strong> {stats.rejectedLeaves}</p>
-                </div>
-            )}
-
-            {/* PROFILE & PAYROLL MATRIX */}
-            {employee && (
-                <div className="card-wrapper">
-                    <div className="profile-card">
-                        <h3 className="welcome-text">Welcome to your profile {employee.name}</h3>
-
-                        <div className="info-grid">
-                            <div className="info-row"><span>Email </span><b>{employee.email}</b></div>
-                            <div className="info-row"><span>Age </span><b>{employee.age}</b></div>
-                            <div className="info-row"><span>Blood Group </span><b>{employee.bloodGroup}</b></div>
-                            <div className="info-row"><span>City </span><b>{employee.city}</b></div>
-                            <div className="info-row"><span>Gender </span><b>{employee.gender}</b></div>
-                            <div className="info-row"><span>Pincode </span><b>{employee.pincode}</b></div>
-                            <div className="info-row"><span>Designation </span><b>{employee.designation}</b></div>
-                            <div className="info-row role"><span>Role </span><b>{employee.role}</b></div>
-                        </div>
-                        
-                        {/* ============================== */}
-                        {/* EMPLOYEE PAYROLL SUB-SECTION   */}
-                        {/* ============================== */}
-                        <div style={{ marginTop: '35px', paddingTop: '25px', borderTop: '1px solid #e2e8f0' }}>
-                            <h4 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>
-                                Financial Ledger & Payroll
-                            </h4>
-                            
-                            {employee.payroll ? (
-                                <div style={{ 
-                                    display: 'flex', 
-                                    flexDirection: 'column', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center',
-                                    backgroundColor: '#f8fafc', 
-                                    padding: '24px', 
-                                    borderRadius: '12px',
-                                    border: '1px solid #e2e8f0',
-                                    maxWidth: '400px',
-                                    margin: '0 auto',
-                                    boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
-                                }}>
-                                    {/* Centered Salary Metric */}
-                                    <div style={{ textAlign: 'center', marginBottom: '18px' }}>
-                                        <p style={{ margin: '0 0 4px 0', fontSize: '14px', color: '#64748b', fontWeight: '500' }}>
-                                            Latest Net Take-Home Salary
-                                        </p>
-                                        <strong style={{ color: '#10b981', fontSize: '28px', fontWeight: '800', letterSpacing: '-0.02em' }}>
-                                            ₹{employee.payroll.netSalary}
-                                        </strong>
-                                    </div>
-
-                                    {/* Downsized Centered Button */}
-                                    <button 
-                                        className="btn btn-primary" 
-                                        onClick={generatePayslipPDF}
-                                        style={{ 
-                                            padding: '10px 24px', 
-                                            fontSize: '14px', 
-                                            fontWeight: '600', 
-                                            borderRadius: '8px',
-                                            width: 'auto', // Overrides full stretch
-                                            minWidth: '160px',
-                                            boxShadow: '0 4px 6px -1px rgba(79, 70, 229, 0.2)'
-                                        }}
-                                    >
-                                        Generate Pay Slip
-                                    </button>
-                                </div>
-                            ) : (
-                                <p style={{ color: '#64748b', fontStyle: 'italic', fontSize: '14px', backgroundColor: '#f1f5f9', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-                                    Your payroll matrix has not been configured by HR yet.
-                                </p>
-                            )}
+            {/* MAIN CONTENT */}
+            <main className="main-content">
+                <header className="topbar">
+                    <div>
+                        <h1>Welcome Back, {employee?.name?.split(' ')[0] || 'Employee'}</h1>
+                        <p>Employee Control Room</p>
+                    </div>
+                    <div className="profile-badge">
+                        <div className="avatar">{employee?.name?.charAt(0) || 'E'}</div>
+                        <div className="badge-info">
+                            <span className="badge-name">{employee?.name}</span>
+                            <span className="badge-role">{employee?.designation}</span>
                         </div>
                     </div>
-                </div>
-            )}
+                </header>
 
-            {/* ============================== */}
-            {/* PDF IFRAME PREVIEW MODAL       */}
-            {/* ============================== */}
+                <div className="dashboard-grid">
+                    
+                    {/* UPGRADED PROFILE CARD */}
+                    {/* PREMIUM PROPERTY GRID PROFILE CARD */}
+                    {employee && (
+                        <div className="dash-card profile-section">
+                            <div className="profile-card-header">
+                                <h3>Personal Details</h3>
+                                
+                            </div>
+                            
+                            <div className="property-grid">
+                                <div className="property-item">
+                                    <span className="property-label">Email Address</span>
+                                    <span className="property-value">{employee.email}</span>
+                                </div>
+                                <div className="property-item">
+                                    <span className="property-label">Age</span>
+                                    <span className="property-value">{employee.age} Years</span>
+                                </div>
+                                <div className="property-item">
+                                    <span className="property-label">Gender</span>
+                                    <span className="property-value">{employee.gender}</span>
+                                </div>
+                                <div className="property-item">
+                                    <span className="property-label">Blood Group</span>
+                                    <span className="property-value blood-pill">{employee.bloodGroup}</span>
+                                </div>
+                                <div className="property-item full-width">
+                                    <span className="property-label">Location</span>
+                                    <span className="property-value">{employee.city}, {employee.pincode}</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* DYNAMIC RIGHT COLUMN: LEAVE OR PAYROLL */}
+                    <div className="dash-card action-section">
+                        {showLeaveForm ? (
+                            <div className="form-container">
+                                <h3>Apply for Leave</h3>
+                                <div className="dash-input-group">
+                                    <label>Start Date</label>
+                                    <input type="date" name="startDate" value={leaveData.startDate} onChange={handleLeaveChange} />
+                                </div>
+                                <div className="dash-input-group">
+                                    <label>End Date</label>
+                                    <input type="date" name="endDate" value={leaveData.endDate} onChange={handleLeaveChange} />
+                                </div>
+                                <div className="dash-input-group">
+                                    <label>Leave Type</label>
+                                    <input type="text" name="leaveType" placeholder="e.g. Sick, Casual" value={leaveData.leaveType} onChange={handleLeaveChange} />
+                                </div>
+                                <div className="dash-input-group">
+                                    <label>Reason</label>
+                                    <textarea name="reason" placeholder="Brief reason for leave..." value={leaveData.reason} onChange={handleLeaveChange} />
+                                </div>
+                                <button className="primary-btn" onClick={submitLeaveRequest}>Submit Request</button>
+                            </div>
+                        ) : showStats && stats ? (
+                            <div className="stats-container">
+                                <h3>Leave Statistics</h3>
+                                <div className="stat-boxes">
+                                    <div className="stat-box">
+                                        <span className="stat-val">{stats.totalRequests}</span>
+                                        <span className="stat-label">Total</span>
+                                    </div>
+                                    <div className="stat-box approved">
+                                        <span className="stat-val">{stats.approvedLeaves}</span>
+                                        <span className="stat-label">Approved</span>
+                                    </div>
+                                    <div className="stat-box rejected">
+                                        <span className="stat-val">{stats.rejectedLeaves}</span>
+                                        <span className="stat-label">Rejected</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="payroll-container">
+                                <h3>Financial Ledger</h3>
+                                {employee?.payroll ? (
+                                    <div className="payroll-summary">
+                                        <p>Latest Net Take-Home Salary</p>
+                                        <h2>₹{employee.payroll.netSalary}</h2>
+                                        <button className="primary-btn" onClick={generatePayslipPDF}>
+                                            Generate Pay Slip
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <p className="no-data">Your payroll matrix has not been configured by HR yet.</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </main>
+
+            {/* PDF IFRAME PREVIEW MODAL */}
             {showPreview && pdfUrl && (
                 <div style={previewStyles.overlay}>
                     <div style={previewStyles.container}>
                         <div style={previewStyles.headerRow}>
                             <h4 style={{ margin: 0 }}>Interactive Preview - Payslip Statement Document</h4>
                             <div style={{ display: 'flex', gap: '10px' }}>
-                                <a href={pdfUrl} download={`Payslip_${employee?.name}.pdf`} className="btn btn-success" style={{ textDecoration: 'none' }}>
-                                    Download PDF Document
+                                <a href={pdfUrl} download={`Payslip_${employee?.name}.pdf`} className="success-btn" style={{ textDecoration: 'none' }}>
+                                    Download PDF
                                 </a>
-                                <button className="btn btn-danger" onClick={() => setShowPreview(false)}>Close Window</button>
+                                <button className="danger-btn" onClick={() => setShowPreview(false)}>Close</button>
                             </div>
                         </div>
                         <iframe src={pdfUrl} title="Payslip Viewport Explorer" style={{ width: '100%', height: 'calc(100% - 60px)', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
 
 const previewStyles = {
     overlay: { position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 10000 },
-    container: { background: '#fff', width: '80%', height: '85vh', borderRadius: '16px', padding: '20px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' },
-    headerRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }
+    container: { background: '#fff', width: '80%', height: '85vh', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' },
+    headerRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }
 };
 
 export default Dashboard;

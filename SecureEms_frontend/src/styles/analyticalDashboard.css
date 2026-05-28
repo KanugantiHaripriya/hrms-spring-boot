@@ -1,0 +1,464 @@
+
+/* ==========================================================================
+   ðŸ”’ SECUREEMS PRESTIGE NAMESPACED BRAND ARCHITECTURE (NESTED FORMAT)
+   ========================================================================== */
+
+.sems-analytics-workspace {
+  /* 1. Change this variable to transparent */
+  --sems-bg: transparent; 
+  --sems-panel: #ffffff;
+  --sems-stroke: rgba(226, 232, 240, 0.75);
+  --sems-stroke-hover: rgba(194, 205, 220, 0.9);
+  
+  /* System Typography Tone Map */
+  --sems-text-dark: #0f172a;
+  --sems-text-mid: #475569;
+  --sems-text-light: #94a3b8;
+  
+  /* Interface Modifiers */
+  --sems-radius: 16px;
+  --sems-radius-sm: 10px;
+  --sems-motion: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout settings */
+  width: 100%;
+  
+  /* 2. REMOVE min-height: 100vh; entirely so it doesn't force a giant background */
+  
+  /* 3. CHANGE padding to 0 so it sits flush with your parent layout */
+  padding: 0; 
+  
+  background-color: var(--sems-bg);
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--sems-text-mid);
+  
+  /* 4. ADD these to strip away any remaining container edges */
+  border: none !important;
+  box-shadow: none !important;
+
+  /* 👑 HEADER HERO DESIGN */
+  .sems-dashboard-hero {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .sems-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .sems-hero-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--sems-text-dark);
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .sems-hero-subtitle {
+    font-size: 14px;
+    color: var(--sems-text-light);
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+
+  /* ðŸš€ STRIPE-STYLE INTERACTIVE METRICS GRID */
+  .sems-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .sems-kpi-card {
+    background: var(--sems-panel);
+    padding: 24px;
+    border-radius: var(--sems-radius);
+    border: 1px solid var(--sems-stroke);
+    box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--sems-motion);
+
+    &:hover {
+      transform: translateY(-3px);
+      border-color: var(--sems-stroke-hover);
+      box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.08);
+
+      .sems-kpi-icon-wrapper {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  .sems-kpi-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .sems-kpi-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sems-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .sems-kpi-icon-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--sems-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--sems-motion);
+  }
+
+  .sems-kpi-value {
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--sems-text-dark);
+    margin: 0;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .sems-kpi-subtext {
+    font-size: 12px;
+    color: var(--sems-text-light);
+    margin-top: 8px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sems-trend-icon {
+    color: #10b981;
+  }
+
+  /* ðŸ“Š CHARTS WORKSPACE GRID PANELS */
+  .sems-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .sems-chart-card {
+    background: var(--sems-panel);
+    padding: 20px;
+    border-radius: var(--sems-radius);
+    border: 1px solid var(--sems-stroke);
+    box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.02);
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    box-sizing: border-box;
+    transition: var(--sems-motion);
+
+    &:hover {
+      border-color: var(--sems-stroke-hover);
+      box-shadow: 0 20px 40px -16px rgba(15, 23, 42, 0.05);
+    }
+  }
+
+  /* Structural Spanning Rules */
+  .sems-span-2 { grid-column: span 2; }
+  .sems-span-3 { grid-column: span 3; }
+
+  .sems-chart-head {
+    margin-bottom: 28px;
+  }
+
+  .sems-chart-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sems-text-dark);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .sems-chart-desc {
+    font-size: 13px;
+    color: var(--sems-text-light);
+    margin-top: 4px;
+    margin-bottom: 0;
+  }
+
+  /* Concrete Layout Canvas Sizing blocks */
+  .sems-canvas-box {
+    width: 100%;
+    height: 310px;
+    position: relative;
+  }
+
+  .sems-pie-canvas { height: 200px; }
+
+  /* ðŸ© HIGH-FIDELITY PIE CHART GRID LEGEND */
+  .sems-legend-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: auto;
+    border-top: 1px solid rgba(241, 245, 249, 0.9);
+    padding-top: 24px;
+  }
+
+  .sems-legend-node {
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: var(--sems-radius-sm);
+    border: 1px solid rgba(230, 235, 242, 0.6);
+    transition: var(--sems-motion);
+
+    &:hover {
+      background: #f1f5f9;
+    }
+  }
+
+  .sems-legend-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .sems-legend-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .sems-legend-txt {
+    font-size: 11px;
+    color: var(--sems-text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .sems-legend-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--sems-text-dark);
+  }
+
+  /* ðŸ’Ž PREMIUM OVERRIDES FOR RECHARTS FLOATING TOOLTIPS */
+  .recharts-default-tooltip {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(6px);
+    border-radius: 12px !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.12) !important;
+    padding: 12px 16px !important;
+  }
+
+  .recharts-tooltip-label {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: var(--sems-text-dark) !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* ðŸ’³ PREMIUM STRIPE-STYLE LEDGER COMPONENT STYLES */
+  .sems-stripe-ledger-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .sems-segment-strip-bar {
+    display: flex;
+    width: 100%;
+    height: 10px;
+    background: #f1f5f9;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+
+  .sems-segment-slice {
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 2px solid #ffffff;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .sems-ledger-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--sems-stroke);
+    border-radius: var(--sems-radius-sm);
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .sems-ledger-header-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 12px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--sems-stroke);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--sems-text-light);
+    letter-spacing: 0.05em;
+  }
+
+  .sems-ledger-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    align-items: center;
+    transition: var(--sems-motion);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #f8fafc;
+    }
+  }
+
+  .sems-ledger-status-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sems-ledger-icon-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sems-ledger-name-string {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sems-text-dark);
+    text-transform: capitalize;
+  }
+
+  .sems-ledger-volume-cell {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sems-text-mid);
+
+    small {
+      color: var(--sems-text-light);
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+
+  .sems-ledger-weight-cell .sems-weight-pill {
+    display: inline-flex;
+    padding: 2px 8px;
+    background: #f1f5f9;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sems-text-dark);
+  }
+}
+
+/* ==========================================================================
+   ðŸŽ¨ INDEPENDENT GLOBAL MODIFIERS / SYSTEM STATES
+   ========================================================================== */
+
+/* System Dynamic Palette Map */
+.sems-variant-blue .sems-kpi-icon-wrapper    { background: #eff6ff; color: #4f46e5; }
+.sems-variant-emerald .sems-kpi-icon-wrapper { background: #ecfdf5; color: #10b981; }
+.sems-variant-purple .sems-kpi-icon-wrapper  { background: #faf5ff; color: #8b5cf6; }
+.sems-variant-amber .sems-kpi-icon-wrapper   { background: #fffbeb; color: #f59e0b; }
+.sems-variant-rose .sems-kpi-icon-wrapper    { background: #fff1f2; color: #ef4444; }
+
+.sems-ledger-indigo  { background: #eff6ff; color: #6366f1; }
+.sems-ledger-emerald { background: #ecfdf5; color: #10b981; }
+.sems-ledger-rose    { background: #fff1f2; color: #ef4444; }
+
+/* ðŸ”„ SYSTEM STATE SCREENS */
+.sems-status-fallback {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+
+  &.sems-error-state { color: #ef4444; }
+}
+
+.sems-premium-loader {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: sems-spin 0.7s linear infinite;
+}
+
+@keyframes sems-spin { to { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   ðŸ“± ULTRA-RESPONSIVE VIEWPORT BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 1300px) {
+  .sems-analytics-workspace {
+    .sems-charts-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    .sems-chart-card,
+    .sems-span-2,
+    .sems-span-3 {
+      grid-column: span 1 !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sems-analytics-workspace { 
+    padding: 24px; 
+    .sems-legend-wrapper { grid-template-columns: repeat(2, 1fr); }
+  }
+}
+
+@media (max-width: 480px) {
+  .sems-analytics-workspace .sems-legend-wrapper { grid-template-columns: 1fr; }
+}

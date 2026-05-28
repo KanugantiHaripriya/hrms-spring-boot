@@ -1,90 +1,168 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    font-family: system-ui, Arial;
-    background: #f3f4f6;
+    padding: 0;
 }
 
-/* Page center */
-.register-page {
-    min-height: 100vh;
+.simple-register-container {
     display: flex;
-    justify-content: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+/* --- Left Side: Dark Visual --- */
+.register-visual {
+    flex: 1;
+    background-color: #111111; 
+    color: #ffffff;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 40px;
 }
 
-/* Card */
-.register-card {
-    width: 600px;
-    background: white;
-    padding: 30px;
-
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
+.quote-container {
+    max-width: 80%;
 }
 
-/* Title */
-.title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: #111827;
+.quote-container h2 {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #f3f4f6;
+    margin-bottom: 16px;
 }
 
-/* Grid layout */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+.quote-container p {
+    font-size: 16px;
+    color: #9ca3af;
+    font-weight: 400;
 }
 
-/* Inputs */
-.grid input {
-    padding: 10px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
+/* --- Right Side: Clean Form --- */
+.register-form-section {
+    flex: 1.2; /* Slightly wider to accommodate the grid */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 40px;
 }
 
-/* focus */
-.grid input:focus {
-    border-color: #2563eb;
-}
-
-/* Button */
-button {
+.form-content.wide {
     width: 100%;
-    margin-top: 15px;
-    padding: 12px;
+    max-width: 500px; /* Wider max-width for the grid layout */
+}
 
-    border: none;
-    border-radius: 8px;
-
-    background: #111827;
-    color: white;
-
-    cursor: pointer;
+.form-content h1 {
+    font-size: 32px;
     font-weight: 600;
+    color: #111111;
+    margin-bottom: 8px;
 }
 
-button:hover {
-    background: #1f2937;
+.subtext {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 32px;
 }
 
-.links {
-    margin-top: 16px;
+/* --- The Grid Layout --- */
+.simple-form {
     display: flex;
     flex-direction: column;
+    gap: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 24px; /* Row gap 20px, Column gap 24px */
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+/* Bare minimum inputs */
+.simple-input {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #111111;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #e5e7eb;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.simple-input::placeholder {
+    color: #9ca3af;
+}
+
+.simple-input:focus {
+    border-bottom-color: #111111;
+}
+
+/* High contrast button */
+.simple-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #111111;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s ease;
+}
+
+.simple-btn:hover {
+    opacity: 0.85;
+}
+
+/* Simple text links */
+.simple-footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
     gap: 8px;
-    text-align: center;
+    font-size: 14px;
 }
 
-.links a {
-    font-size: 13px;
-    color: #2563eb;
+.footer-text {
+    color: #6b7280;
+}
+
+.footer-link {
+    color: #111111;
     text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
 }
 
-.links a:hover {
-    text-decoration: underline;
+.footer-link:hover {
+    opacity: 0.7;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .simple-register-container {
+        flex-direction: column;
+    }
+    .register-visual {
+        padding: 60px 20px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr; /* Stacks to 1 column on small screens */
+    }
+    .full-width {
+        grid-column: span 1;
+    }
 }

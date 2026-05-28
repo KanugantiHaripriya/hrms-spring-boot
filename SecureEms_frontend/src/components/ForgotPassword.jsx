@@ -1,62 +1,63 @@
 import { useState } from "react";
-import api from "../services/api";
-import { useNavigate } from "react-router-dom";
-
-import "../styles/auth.css"
+// import api from "../services/api";
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/auth.css";
 
 function ForgotPassword() {
-
     const navigate = useNavigate();
-
     const [email, setEmail] = useState("");
 
-    const sendOtp = async () => {
+    const handleSendOtp = async (e) => {
+        e.preventDefault(); // Prevents page reload on form submit
 
         try {
-
-            await api.post(
-                `/auth/forgot-password?email=${email}`
-            );
-
-            localStorage.setItem(
-                "resetEmail",
-                email
-            );
-
+            // await api.post(`/auth/forgot-password?email=${email}`);
+            
+            localStorage.setItem("resetEmail", email);
             alert("OTP Sent To Email");
-
             navigate("/reset-password");
 
         } catch (error) {
-
             alert("Failed To Send OTP");
         }
     };
 
     return (
-        <div className="auth-page">
+        <div className="simple-auth-container">
+            
+            
 
-            <div className="auth-card">
+            {/* Right Side: The Form */}
+            <div className="auth-form-section">
+                <div className="form-content">
+                    <h1>Reset Password</h1>
+                    <br />
+                    <p className="subtext">Enter your email address and we'll send you a One-Time Password to restore access.</p>
 
-                <h2 className="title">Forgot Password</h2>
+                    <form onSubmit={handleSendOtp} className="simple-form">
+                        <input
+                            type="email"
+                            placeholder="Email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="simple-input"
+                            required
+                        />
 
-                <input
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                        <button type="submit" className="simple-btn" style={{ background: "#0f172a", color: "#fff" }}>
+                            Send OTP
+                        </button>
+                    </form>
 
-                <button onClick={sendOtp}>
-                    Send OTP
-                </button>
-
+                    <div className="simple-footer">
+                        <span className="footer-text">Remember your password?</span>
+                        <Link to="/" className="footer-link">Back to Login</Link>
+                    </div>
+                </div>
             </div>
 
         </div>
     );
-
-   
 }
 
 export default ForgotPassword;

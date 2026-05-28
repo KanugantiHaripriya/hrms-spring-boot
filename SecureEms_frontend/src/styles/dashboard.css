@@ -1,177 +1,401 @@
-/* DASHBOARD MAIN */
-.dashboard-container {
-    min-height: 100vh;
-    padding: 30px;
-    background: linear-gradient(135deg, #eef2ff, #dbeafe);
-    font-family: Arial, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* HEADER */
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1e293b;
-    padding: 18px 25px;
-    border-radius: 14px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-
-.dashboard-header h2 {
-    color: white;
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    font-size: 28px;
-    font-weight: bold;
+    padding: 0;
 }
 
-/* NAVBAR BUTTONS */
-.mt-3 {
+.dashboard-layout {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 0 !important;
+    min-height: 100vh;
+    background-color: #f8fafc; /* Very light gray background */
 }
 
-/* COMMON BUTTON STYLE */
-.mt-3 button,
-.dashboard-btn {
-    padding: 12px 22px;
+/* ===========================
+   SIDEBAR 
+=========================== */
+.sidebar {
+    width: 250px;
+    background-color: #0f172a; /* Deep dark slate */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.sidebar-brand h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+}
+
+.sidebar-brand span {
+    color: #10b981; /* Green accent */
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-item {
+    background: transparent;
+    color: #94a3b8;
     border: none;
-    border-radius: 10px;
+    text-align: left;
+    padding: 12px 16px;
+    border-radius: 8px;
     font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background-color: #1e293b;
+    color: #ffffff;
+}
+
+.nav-item.active {
+    background-color: #10b981;
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    padding-top: 24px;
+    border-top: 1px solid #1e293b;
+}
+
+.logout-btn {
+    width: 100%;
+    background: transparent;
+    color: #ef4444; /* Red */
+    border: 1px solid #ef4444;
+    padding: 10px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
-}
-
-/* LEAVE BUTTON */
-.btn-primary {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
-}
-
-/* STATUS BUTTON */
-.btn-success {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-}
-
-.btn-success:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(22, 163, 74, 0.4);
-}
-
-/* LOGOUT BUTTON */
-.logout-btn {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    transition: all 0.2s;
 }
 
 .logout-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+    background-color: #ef4444;
+    color: #ffffff;
 }
 
-/* CARD STYLE */
-.card,
-.profile-card {
-    background: white;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-}
-
-/* FORM INPUTS */
-.form-control {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 1px solid #cbd5e1;
-    font-size: 15px;
-    transition: 0.3s;
-}
-
-.form-control:focus {
-    border-color: #2563eb;
-    outline: none;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
-}
-
-/* PROFILE CARD */
-.card-wrapper {
+/* ===========================
+   MAIN CONTENT 
+=========================== */
+.main-content {
+    flex: 1;
+    padding: 32px 48px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    overflow-y: auto;
 }
 
-.profile-card {
-    width: 100%;
-    max-width: 850px;
-}
-
-.welcome-text {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #1e293b;
-    font-size: 26px;
-}
-
-/* GRID */
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.info-row {
-    background: #f8fafc;
-    padding: 14px 18px;
-    border-radius: 12px;
+.topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 5px solid #2563eb;
 }
 
-.info-row span {
+.topbar h1 {
+    font-size: 24px;
+    color: #0f172a;
     font-weight: 600;
-    color: #475569;
+    margin-bottom: 4px;
 }
 
-.info-row b {
+.topbar p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    padding: 8px 16px 8px 8px;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    border: 1px solid #e2e8f0;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #10b981;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+}
+
+.badge-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-name {
+    font-size: 14px;
+    font-weight: 600;
     color: #0f172a;
 }
 
-/* ROLE SPECIAL */
-.role {
-    border-left: 5px solid #16a34a;
+.badge-role {
+    font-size: 12px;
+    color: #64748b;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* ===========================
+   GRID & CARDS 
+=========================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
 
-    .dashboard-header {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
+.dash-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
 
-    .mt-3 {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+.dash-card h3 {
+    font-size: 18px;
+    color: #0f172a;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
 
-    .mt-3 button,
-    .dashboard-btn {
-        width: 100%;
-    }
+/* Profile Info */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-item span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.info-item b {
+    font-size: 15px;
+    color: #0f172a;
+    font-weight: 500;
+}
+
+/* Action Section (Leave / Payroll) */
+.dash-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.dash-input-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.dash-input-group input, 
+.dash-input-group textarea {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.dash-input-group input:focus, 
+.dash-input-group textarea:focus {
+    border-color: #10b981;
+}
+
+/* Stats */
+.stat-boxes {
+    display: flex;
+    gap: 16px;
+}
+
+.stat-box {
+    flex: 1;
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-val {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.stat-box.approved .stat-val { color: #10b981; }
+.stat-box.rejected .stat-val { color: #ef4444; }
+
+/* Payroll */
+.payroll-summary {
+    text-align: center;
+    padding: 32px 0;
+}
+
+.payroll-summary p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.payroll-summary h2 {
+    font-size: 36px;
+    color: #10b981;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+}
+
+.no-data {
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 20px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+}
+
+/* Buttons */
+.primary-btn {
+    width: 100%;
+    background-color: #111111;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.primary-btn:hover { opacity: 0.85; }
+
+.success-btn {
+    background-color: #10b981;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.danger-btn {
+    background-color: #ef4444;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===========================
+   PREMIUM PROPERTY GRID
+=========================== */
+.profile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px; /* Slightly more breathing room */
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-card-header h3 {
+    margin-bottom: 0; 
+}
+
+.edit-link-btn {
+    background: transparent;
+    border: none;
+    color: #10b981;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.edit-link-btn:hover {
+    opacity: 0.7;
+}
+
+/* The New Grid Layout */
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px; /* 24px vertical gap, 20px horizontal gap */
+}
+
+.property-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.property-item.full-width {
+    grid-column: span 2;
+}
+
+/* Uppercase, spaced-out labels for a high-end tech feel */
+.property-label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.property-value {
+    font-size: 15px;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* Refined blood group badge */
+.blood-pill {
+    display: inline-block;
+    background-color: #fee2e2; 
+    color: #ef4444; 
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    width: fit-content;
 }
