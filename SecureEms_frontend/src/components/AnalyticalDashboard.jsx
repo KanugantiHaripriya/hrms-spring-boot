@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, CheckCircle, Laptop, FileText, DollarSign, TrendingUp, Box, AlertTriangle } from 'lucide-react';
+import { Users, CheckCircle, Laptop, FileText, DollarSign, TrendingUp, Box, AlertTriangle, Download} from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import "../styles/analyticalDashboard.css";
 
@@ -71,6 +71,78 @@ const AnalyticalDashboard = () => {
     }
   };
 
+  const handleExportExcel = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/dashboard/export', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (!response.ok) throw new Error("Failed to download Excel sheet");
+
+      // Convert the response to a Blob (binary data)
+      const blob = await response.blob();
+      
+      // Create a temporary URL and trigger a silent download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'SecureEMS_Dashboard.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Export Error:", err);
+      alert("Failed to export data to Excel.");
+    }
+  };
+
+  const handleExportLeaves = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/dashboard/export/leaves', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (!response.ok) throw new Error("Failed to download Leaves Excel sheet");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'SecureEMS_Leaves_Report.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Leaves Export Error:", err);
+      alert("Failed to export leaves data.");
+    }
+  };
+
+  const handleExportAssets = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/dashboard/export/assets', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (!response.ok) throw new Error("Failed to download Assets Excel sheet");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'SecureEMS_Assets_Report.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Assets Export Error:", err);
+      alert("Failed to export assets data.");
+    }
+  };
+
   return (
     <div className="sems-analytics-workspace">
 
@@ -107,6 +179,13 @@ const AnalyticalDashboard = () => {
             <h3 className="sems-chart-title">Workforce Trend by Designation</h3>
             <p className="sems-chart-desc">Staff headcount proportions calculated by active employment roles</p>
           </div>
+
+          {/* EXPORT BUTTON */}
+            <button onClick={handleExportExcel} className="sems-export-btn">
+              <Download size={16} />
+              Export to Excel
+            </button>
+
           <div className="sems-canvas-box">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={departmentData} margin={{ top: 15, right: 15, left: -15, bottom: 5 }}>
@@ -140,6 +219,13 @@ const AnalyticalDashboard = () => {
             <h3 className="sems-chart-title">Leave Application Status</h3>
             <p className="sems-chart-desc">Current lifecycle of active queue metrics</p>
           </div>
+
+          {/* LEAVES EXPORT BUTTON */}
+            <button onClick={handleExportLeaves} className="sems-export-btn">
+              <Download size={14} />
+              Export Leave Status
+            </button>
+
           <div className="sems-canvas-box sems-pie-canvas">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -186,6 +272,12 @@ const AnalyticalDashboard = () => {
             <p className="sems-chart-desc">Macro status tracking metrics and global system asset distribution rates</p>
           </div>
 
+            {/* ASSETS EXPORT BUTTON */}
+            <button onClick={handleExportAssets} className="sems-export-btn">
+              <Download size={14} />
+              Export Assets
+            </button>
+            <br />
           <div className="sems-stripe-ledger-container">
             <div className="sems-segment-strip-bar">
               {assetData.map((item) => {

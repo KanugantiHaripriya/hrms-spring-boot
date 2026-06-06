@@ -462,3 +462,31 @@
 @media (max-width: 480px) {
   .sems-analytics-workspace .sems-legend-wrapper { grid-template-columns: 1fr; }
 }
+
+/* ðŸ“¥ EXPORT BUTTON */
+.sems-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid var(--sems-stroke);
+  padding: 8px 16px;
+  border-radius: var(--sems-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--sems-motion);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+}
+
+.sems-export-btn:hover {
+  background: #f8fafc;
+  border-color: var(--sems-stroke-hover);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transform: translateY(-1px);
+}
+
+.sems-export-btn:active {
+  transform: translateY(0);
+}

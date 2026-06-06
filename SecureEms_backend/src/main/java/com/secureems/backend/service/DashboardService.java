@@ -16,6 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class DashboardService {
@@ -80,5 +85,141 @@ public class DashboardService {
                 .assetStatusDistribution(assetDistribution)
                 .leaveStatusDistribution(leaveDistribution)
                 .build();
+    }
+    
+    public byte[] generateExcelReport() {
+        DashboardAnalyticsDto data = getCentralDashboardMetrics();
+
+        try (Workbook workbook = new XSSFWorkbook(); 
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            
+            Sheet sheet = workbook.createSheet("Dashboard Analytics");
+
+            // --- Section 1: KPI Metrics ---
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Metric Name");
+            headerRow.createCell(1).setCellValue("Value");
+
+            // Make headers bold
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            boldStyle.setFont(font);
+            headerRow.getCell(0).setCellStyle(boldStyle);
+            headerRow.getCell(1).setCellStyle(boldStyle);
+
+            int rowIdx = 1;
+            sheet.createRow(rowIdx++).createCell(0).setCellValue("Total Employees");
+            sheet.getRow(rowIdx - 1).createCell(1).setCellValue(data.getTotalEmployees());
+
+            sheet.createRow(rowIdx++).createCell(0).setCellValue("Active Employees");
+            sheet.getRow(rowIdx - 1).createCell(1).setCellValue(data.getActiveEmployees());
+
+            sheet.createRow(rowIdx++).createCell(0).setCellValue("Total Assigned Assets");
+            sheet.getRow(rowIdx - 1).createCell(1).setCellValue(data.getTotalAssignedAssets());
+
+            sheet.createRow(rowIdx++).createCell(0).setCellValue("Pending Leave Requests");
+            sheet.getRow(rowIdx - 1).createCell(1).setCellValue(data.getPendingLeaveRequests());
+
+            sheet.createRow(rowIdx++).createCell(0).setCellValue("Total Monthly Payroll Outflow");
+            sheet.getRow(rowIdx - 1).createCell(1).setCellValue(data.getTotalMonthlyPayrollOutflow());
+
+            // --- Section 2: Department Distribution ---
+            rowIdx++; // Empty row for spacing
+            Row deptHeader = sheet.createRow(rowIdx++);
+            deptHeader.createCell(0).setCellValue("Department");
+            deptHeader.createCell(1).setCellValue("Count");
+            deptHeader.getCell(0).setCellStyle(boldStyle);
+            deptHeader.getCell(1).setCellStyle(boldStyle);
+
+            for (Map.Entry<String, Long> entry : data.getDepartmentWiseDistribution().entrySet()) {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(entry.getKey());
+                row.createCell(1).setCellValue(entry.getValue());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            workbook.write(out);
+            return out.toByteArray();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to generate Excel file", e);
+        }
+    }
+    
+    public byte[] generateLeavesExcelReport() {
+        DashboardAnalyticsDto data = getCentralDashboardMetrics();
+
+        try (Workbook workbook = new XSSFWorkbook(); 
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            
+            Sheet sheet = workbook.createSheet("Leave Analytics");
+
+            // Header Styling
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            boldStyle.setFont(font);
+
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Leave Status");
+            headerRow.createCell(1).setCellValue("Application Count");
+            headerRow.getCell(0).setCellStyle(boldStyle);
+            headerRow.getCell(1).setCellStyle(boldStyle);
+
+            int rowIdx = 1;
+            for (Map.Entry<String, Long> entry : data.getLeaveStatusDistribution().entrySet()) {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(entry.getKey());
+                row.createCell(1).setCellValue(entry.getValue());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            workbook.write(out);
+            return out.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to generate Leaves Excel report", e);
+        }
+    }
+
+    public byte[] generateAssetsExcelReport() {
+        DashboardAnalyticsDto data = getCentralDashboardMetrics();
+
+        try (Workbook workbook = new XSSFWorkbook(); 
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            
+            Sheet sheet = workbook.createSheet("Asset Inventory Analytics");
+
+            // Header Styling
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            boldStyle.setFont(font);
+
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Asset Operational Status");
+            headerRow.createCell(1).setCellValue("Allocation Volume (Units)");
+            headerRow.getCell(0).setCellStyle(boldStyle);
+            headerRow.getCell(1).setCellStyle(boldStyle);
+
+            int rowIdx = 1;
+            for (Map.Entry<String, Long> entry : data.getAssetStatusDistribution().entrySet()) {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(entry.getKey().replace("_", " "));
+                row.createCell(1).setCellValue(entry.getValue());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            workbook.write(out);
+            return out.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to generate Assets Excel report", e);
+        }
     }
 }
